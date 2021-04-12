@@ -72,19 +72,12 @@ export default function App() {
       <header>
         <div className="d-flex">
           <img src="images/kobe-logo-sq.jpg" className="logo" />
-          <div className="mx-2">
-            <form>
-              <input type="text" name="search" placeholder="search..."></input>
-            </form>
-         </div>
+          <div className="has-search">
+            <span className="fa fa-search form-control-feedback"></span>
+            <input type="text" className="form-control" placeholder="Search" />
+          </div>
         </div>
-
       </header>
-
-
-      <div>
-
-      </div>
 
       <div className="App">
       </div>

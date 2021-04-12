@@ -2,12 +2,25 @@ import axios from 'axios';
 import React, { useState } from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
+import {Card} from 'react-bootstrap';
 // import styled from 'styled-components';
 
 // const Formtag = styled.form `
 // color: red;
 // font-size: 40px;`
 
+
+const cardInfo = [
+  {
+    image: 'https://pyxis.nymag.com/v1/imgs/847/0f7/504c63a03d8a751a5cbeda0bc064306bb4-lebron-james.rsquare.w1200.jpg',
+   name: 'Lebron James',
+    team:'Los Angeles Lakers',
+    position: 'F',
+    height_feet: 6,
+    height_inches: 8,
+    weight_pounds: 250,
+  }
+]
 export default function App() {
 
   // const [playerName, setPlayerName ] = useState(null);
@@ -80,6 +93,29 @@ export default function App() {
       </header>
 
       <div className="App">
+        <div className="pt-3">
+          <div className="card-border py-3 m-2">
+            <Card className="m-auto" style={{ width: '18rem' }}>
+              <Card.Img variant="top" src={cardInfo[0].image} />
+              <Card.Body>
+                <Card.Title>{cardInfo[0].name}</Card.Title>
+                <Card.Text>
+                  {cardInfo[0].team}
+                    <i className="fas fa-basketball-ball p-1"></i>
+
+                  {cardInfo[0].position}
+                  <br/>
+                  {cardInfo[0].height_feet}'{cardInfo[0].height_inches}
+                  <i className="fas fa-basketball-ball p-1"></i>
+                  {cardInfo[0].weight_pounds}lbs
+                </Card.Text>
+
+              </Card.Body>
+            </Card>
+          </div>
+
+        </div>
+
       </div>
     </div>
   );

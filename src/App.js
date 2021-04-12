@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
 import {Card} from 'react-bootstrap';
@@ -10,52 +10,78 @@ import {Card} from 'react-bootstrap';
 // font-size: 40px;`
 
 
-const cardInfo = [
-  {
-    image: 'https://pyxis.nymag.com/v1/imgs/847/0f7/504c63a03d8a751a5cbeda0bc064306bb4-lebron-james.rsquare.w1200.jpg',
-   name: 'Lebron James',
-    team:'Los Angeles Lakers',
-    position: 'F',
-    height_feet: 6,
-    height_inches: 8,
-    weight_pounds: 250,
-  }
-]
+// const cardInfo = [
+//   {
+//     image: 'https://pyxis.nymag.com/v1/imgs/847/0f7/504c63a03d8a751a5cbeda0bc064306bb4-lebron-james.rsquare.w1200.jpg',
+//    name: 'Lebron James',
+//     team:'Los Angeles Lakers',
+//     position: 'F',
+//     height_feet: 6,
+//     height_inches: 8,
+//     weight_pounds: 250,
+//   }
+// ]
 export default function App() {
 
-  // const [playerName, setPlayerName ] = useState(null);
+  const [playerName, setPlayerName ] = useState([]);
+  const [playerPic, setPlayerPic ] = useState([]);
   // const [playerStats, setPlayerStats ] = useState({});
 
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   getPlayerId();
-  // }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // getPlayerId();
+  }
 
-  // const handleChange = (e) => {
-  //   let replace = e.target.value.split(" ").join("_")
+  const handleChange = (e) => {
+    let replace = e.target.value.split(" ").join("_")
 
-  //   setPlayerName(replace)
-  //   if(replace.length > 0) {
-  //     setPlayerName(replace);
-  //     console.log(playerName)
-  //   }
-  //   else {
-  //     alert("please type player name")
-  //   }
+    setPlayerName(replace)
+    if(replace.length > 0) {
+      setPlayerName(replace);
+      console.log(playerName)
+    }
+    else {
+      alert("please type player name")
+    }
 
-  // }
-  // console.log(playerName)
+  }
+
+  const team = playerName && playerName.team ? playerName.team.full_name : null;
+
+
+
+
+  const fetchData = () => {
+    const playerAPI = "https://www.balldontlie.io/api/v1/players/237";
+    const playerPic = "https://nba-players.herokuapp.com/players/james/lebron";
+
+    const getPlayer = axios.get(playerAPI)
+    const getPic = axios.get(playerPic)
+    axios.all([getPlayer, getPic]).then(
+      axios.spread((...allData) => {
+        const allDataPlayer = allData[0].data
+        const getNBAPlayerPic = allData[1].config.url
+        setPlayerName(allDataPlayer);
+        setPlayerPic(getNBAPlayerPic)
+      })
+    )
+
+  }
+  useEffect(() => {
+    fetchData()
+  },[])
 
   // const getPlayerId = () => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/players?search=${playerName}`)
+  //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
   //   .then(async res => {
   //     console.log(res.data.data)
   //     if(res.data.data[0] === undefined) {
   //       alert("Player is injured")
   //     } else if(res.data.data.length > 1) {
   //       alert("Specify name more")
-  //     } else {
+  //     }
+  //   else {
 
   //       await getStats(res.data.data[0].id)
   //     }
@@ -77,7 +103,7 @@ export default function App() {
 
   // useEffect(() => {
   //   getPlayerId();
-  //   getStats();
+
   // })
 
   return (
@@ -96,18 +122,18 @@ export default function App() {
         <div className="pt-3">
           <div className="card-border py-3 m-2">
             <Card className="m-auto" style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={cardInfo[0].image} />
+              <Card.Img variant="top" src={playerPic} />
               <Card.Body>
-                <Card.Title>{cardInfo[0].name}</Card.Title>
+                <Card.Title>{playerName["first_name"]} {playerName["last_name"]}</Card.Title>
                 <Card.Text>
-                  {cardInfo[0].team}
+                  {team}
                     <i className="fas fa-basketball-ball p-1"></i>
 
-                  {cardInfo[0].position}
+                  {playerName["position"]}
                   <br/>
-                  {cardInfo[0].height_feet}'{cardInfo[0].height_inches}
+                  {playerName["height_feet"]}'{playerName["height_inches"]}
                   <i className="fas fa-basketball-ball p-1"></i>
-                  {cardInfo[0].weight_pounds}lbs
+                  {playerName["weight_pounds"]}lbs
                 </Card.Text>
 
               </Card.Body>

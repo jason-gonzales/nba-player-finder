@@ -131,8 +131,42 @@ font-family: 'Rubik', sans-serif;
 
 }
 
-.card-border {
+.maincontainer {
+  position: relative;
+  width: 360px;
+  height: 410px;
+
+}
+
+.thecard {
+    position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: all 0.5s ease;
+}
+/* .card-border {
+
   background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
+} */
+.thecard:hover {
+  transform: rotateY(180deg);
+}
+
+.thefront {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+    background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
+}
+.theback {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateY(180deg);
+ background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
 }
 
 .card-title {
@@ -147,6 +181,12 @@ font-family: 'Rubik', sans-serif;
 
 .fa-basketball-ball {
   font-size: 8px;
+}
+
+.maincontainer {
+
+
+
 }
 
 @keyframes App-logo-spin {

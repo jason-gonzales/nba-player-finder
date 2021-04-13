@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
 import { Card } from 'react-bootstrap';
+import { get } from 'react-hook-form';
 // import styled from 'styled-components';
 
 // const Formtag = styled.form `
@@ -25,12 +26,14 @@ export default function App() {
 
   const [playerName, setPlayerName] = useState([]);
   const [playerPic, setPlayerPic] = useState([]);
-  // const [playerStats, setPlayerStats ] = useState({});
+  const [playerStats, setPlayerStats ] = useState({});
 
 
   const handleSubmit = (e) => {
+
     e.preventDefault();
     fetchData();
+    getStats();
   }
 
   const handleChange = (e) => {
@@ -49,81 +52,64 @@ export default function App() {
   }
 
   const team = playerName && playerName.team ? playerName.team.full_name : null;
-
-// let playerMod = null;
-//   const namePic = (e) => {
-//     playerMod = e.target.value.split(' ').reverse().join('/')
-//     console.log(playerMod)
-//   }
-// console.log(playerMod)
+let playa = playerName.id
+console.log(playa)
 
   const fetchData = () => {
+    console.log(playerName)
     const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
     const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
+    /* const playerStats = `https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playa}`;*/
 
-    const getPlayer = axios.get(playerAPI)
-    const getPic = axios.get(playerPicAPI)
+    const getPlayer = axios.get(playerAPI);
+    const getPic = axios.get(playerPicAPI);
+    // const getStats = axios.get(playerStats);
+
 
     axios.all([getPlayer, getPic]).then(
       axios.spread((...allData) => {
-        console.log(allData[0].data.data)
+    // const allStats = allData[2].data.data[0]
+    //  setPlayerStats(allStats)
       if(allData[0].data.data[0] === undefined) {
         alert("player injured")
       }
       else if(allData[0].data.data.length > 1) {
          alert("specify name more")
-         console.log(playerName)
          allData[0].data.data = null;
        }
+     getStats(allData[0].data.data[0].id)
+      //  await getStats()
        const allDataPlayer = allData[0].data.data[0]
-        console.log(allDataPlayer)
         const getNBAPlayerPic = allData[1].config.url
+        // console.log(allData[2].data.data[0])
+        // console.log(allStats)
         setPlayerName(allDataPlayer);
         setPlayerPic(getNBAPlayerPic)
+        // setPlayerStats(allStats)
+        console.log(playerName)
       })
     ).catch(err => {
       console.log(err);
     })
   }
 
-  // console.log(playerName)
+  const getStats = ( playerId) => {
+    axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
+    .then(async res => {
+
+      setPlayerStats(res.data.data[0])
+    }).catch(err => {
+      console.log(err)
+    })
+  }
+console.log(playerStats)
+
+
   // useEffect(() => {
   //   fetchData()
   // }, [])
 
-  // const getPlayerId = () => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
-  //   .then(async res => {
-  //     console.log(res.data.data)
-  //     if(res.data.data[0] === undefined) {
-  //       alert("Player is injured")
-  //     } else if(res.data.data.length > 1) {
-  //       alert("Specify name more")
-  //     }
-  //   else {
 
-  //       await getStats(res.data.data[0].id)
-  //     }
-
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
-  // const getStats = ( playerId) => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?seasons[]=2018&seasons[]=2015&player_ids[]=${playerId}`)
-  //   .then(async res => {
-  //     console.log(res.data.data)
-  //     setPlayerStats(res.data.data[0])
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   getPlayerId();
-
-  // })
 
   return (
     <div>
@@ -161,6 +147,18 @@ export default function App() {
               </Card>
             </div>
             <div className="theback">
+              <div className="text-center">
+                season: {playerStats.season}
+                <br/>
+                games played : {playerStats.games_played}
+                <br />
+                PPG : {playerStats.pts}
+                <br />
+                AST : {playerStats.ast}
+                <br />
+                REB : {playerStats.reb}
+
+              </div>
 
             </div>
           </div>
@@ -203,3 +201,38 @@ export default function App() {
         games played : {playerStats["games_played"]}
         <br/>
       PPG : {playerStats["pts"]} */}
+
+
+        // const getPlayerId = () => {
+  //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
+  //   .then(async res => {
+  //     console.log(res.data.data)
+  //     if(res.data.data[0] === undefined) {
+  //       alert("Player is injured")
+  //     } else if(res.data.data.length > 1) {
+  //       alert("Specify name more")
+  //     }
+  //   else {
+
+  //       await getStats(res.data.data[0].id)
+  //     }
+
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
+
+  // const getStats = ( playerId) => {
+  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?seasons[]=2018&seasons[]=2015&player_ids[]=${playerId}`)
+  //   .then(async res => {
+  //     console.log(res.data.data)
+  //     setPlayerStats(res.data.data[0])
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
+
+  // useEffect(() => {
+  //   getPlayerId();
+
+  // })

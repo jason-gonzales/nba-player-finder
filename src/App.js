@@ -30,7 +30,7 @@ export default function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // getPlayerId();
+    fetchData();
   }
 
   const handleChange = (e) => {
@@ -39,38 +39,57 @@ export default function App() {
     setPlayerName(replace)
     if (replace.length > 0) {
       setPlayerName(replace);
-      console.log(playerName)
+      // console.log(playerName)
     }
     else {
       alert("please type player name")
     }
-
+     let playerMod = e.target.value.split(' ').reverse().join('/')
+    setPlayerPic(playerMod)
   }
 
   const team = playerName && playerName.team ? playerName.team.full_name : null;
 
-
-
+// let playerMod = null;
+//   const namePic = (e) => {
+//     playerMod = e.target.value.split(' ').reverse().join('/')
+//     console.log(playerMod)
+//   }
+// console.log(playerMod)
 
   const fetchData = () => {
-    const playerAPI = "https://www.balldontlie.io/api/v1/players/239";
-    const playerPic = "https://nba-players.herokuapp.com/players/jerebko/jonas";
+    const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
+    const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
 
     const getPlayer = axios.get(playerAPI)
-    const getPic = axios.get(playerPic)
+    const getPic = axios.get(playerPicAPI)
+
     axios.all([getPlayer, getPic]).then(
       axios.spread((...allData) => {
-        const allDataPlayer = allData[0].data
+        console.log(allData[0].data.data)
+      if(allData[0].data.data[0] === undefined) {
+        alert("player injured")
+      }
+      else if(allData[0].data.data.length > 1) {
+         alert("specify name more")
+         console.log(playerName)
+         allData[0].data.data = null;
+       }
+       const allDataPlayer = allData[0].data.data[0]
+        console.log(allDataPlayer)
         const getNBAPlayerPic = allData[1].config.url
         setPlayerName(allDataPlayer);
         setPlayerPic(getNBAPlayerPic)
       })
-    )
-
+    ).catch(err => {
+      console.log(err);
+    })
   }
-  useEffect(() => {
-    fetchData()
-  }, [])
+
+  // console.log(playerName)
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
 
   // const getPlayerId = () => {
   //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
@@ -111,34 +130,16 @@ export default function App() {
       <header>
         <div className="d-flex">
           <img src="images/kobe-logo-sq.jpg" className="logo" />
-          <div className="has-search">
-            <span className="fa fa-search form-control-feedback"></span>
-            <input type="text" className="form-control" placeholder="Search" />
-          </div>
-        </div>
+          <form onSubmit={handleSubmit}>
+            <div className="has-search">
+              <span className="fa fa-search form-control-feedback"></span>
+              <input type="text" className="form-control" placeholder="Search" onChange={handleChange} />
+              <input type="submit" value="ball"/>
+            </div>
+          </form>
+         </div>
       </header>
       <div className="App">
-        {/* <div className="pt-3">
-          <div className="card-border py-3 m-2">
-            <Card className="m-auto" style={{ width: '18rem' }}>
-              <Card.Img variant="top" src={playerPic} />
-              <Card.Body>
-                <Card.Title>{playerName["first_name"]} {playerName["last_name"]}</Card.Title>
-                <Card.Text>
-                  {team}
-                  <i className="fas fa-basketball-ball p-1"></i>
-
-                  {playerName["position"]}
-                  <br />
-                  {playerName["height_feet"]}'{playerName["height_inches"]}
-                  <i className="fas fa-basketball-ball p-1"></i>
-                  {playerName["weight_pounds"]}lbs
-                </Card.Text>
-
-              </Card.Body>
-            </Card>
-          </div>
-        </div> */}
         <div className="maincontainer m-auto pt-3">
           <div className="thecard">
             <div className="thefront py-3">

@@ -1,8 +1,8 @@
 import axios from 'axios';
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
-import {Card} from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // import styled from 'styled-components';
 
 // const Formtag = styled.form `
@@ -23,8 +23,8 @@ import {Card} from 'react-bootstrap';
 // ]
 export default function App() {
 
-  const [playerName, setPlayerName ] = useState([]);
-  const [playerPic, setPlayerPic ] = useState([]);
+  const [playerName, setPlayerName] = useState([]);
+  const [playerPic, setPlayerPic] = useState([]);
   // const [playerStats, setPlayerStats ] = useState({});
 
 
@@ -37,7 +37,7 @@ export default function App() {
     let replace = e.target.value.split(" ").join("_")
 
     setPlayerName(replace)
-    if(replace.length > 0) {
+    if (replace.length > 0) {
       setPlayerName(replace);
       console.log(playerName)
     }
@@ -53,8 +53,8 @@ export default function App() {
 
 
   const fetchData = () => {
-    const playerAPI = "https://www.balldontlie.io/api/v1/players/237";
-    const playerPic = "https://nba-players.herokuapp.com/players/james/lebron";
+    const playerAPI = "https://www.balldontlie.io/api/v1/players/239";
+    const playerPic = "https://nba-players.herokuapp.com/players/jerebko/jonas";
 
     const getPlayer = axios.get(playerAPI)
     const getPic = axios.get(playerPic)
@@ -70,7 +70,7 @@ export default function App() {
   }
   useEffect(() => {
     fetchData()
-  },[])
+  }, [])
 
   // const getPlayerId = () => {
   //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
@@ -117,9 +117,8 @@ export default function App() {
           </div>
         </div>
       </header>
-
       <div className="App">
-        <div className="pt-3">
+        {/* <div className="pt-3">
           <div className="card-border py-3 m-2">
             <Card className="m-auto" style={{ width: '18rem' }}>
               <Card.Img variant="top" src={playerPic} />
@@ -127,10 +126,10 @@ export default function App() {
                 <Card.Title>{playerName["first_name"]} {playerName["last_name"]}</Card.Title>
                 <Card.Text>
                   {team}
-                    <i className="fas fa-basketball-ball p-1"></i>
+                  <i className="fas fa-basketball-ball p-1"></i>
 
                   {playerName["position"]}
-                  <br/>
+                  <br />
                   {playerName["height_feet"]}'{playerName["height_inches"]}
                   <i className="fas fa-basketball-ball p-1"></i>
                   {playerName["weight_pounds"]}lbs
@@ -139,9 +138,32 @@ export default function App() {
               </Card.Body>
             </Card>
           </div>
+        </div> */}
+        <div className="maincontainer m-auto pt-3">
+          <div className="thecard">
+            <div className="thefront py-3">
+              <Card className="m-auto" style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={playerPic} />
+                <Card.Body>
+                  <Card.Title>{playerName["first_name"]} {playerName["last_name"]}</Card.Title>
+                  <Card.Text>
+                    {team}
+                    <i className="fas fa-basketball-ball p-1"></i>
 
+                    {playerName["position"]}
+                    <br />
+                    {playerName["height_feet"]}'{playerName["height_inches"]}
+                    <i className="fas fa-basketball-ball p-1"></i>
+                    {playerName["weight_pounds"]}lbs
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="theback">
+
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
   );

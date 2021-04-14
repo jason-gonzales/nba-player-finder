@@ -10,23 +10,172 @@ import { get } from 'react-hook-form';
 // color: red;
 // font-size: 40px;`
 
-
-// const cardInfo = [
-//   {
-//     image: 'https://pyxis.nymag.com/v1/imgs/847/0f7/504c63a03d8a751a5cbeda0bc064306bb4-lebron-james.rsquare.w1200.jpg',
-//    name: 'Lebron James',
-//     team:'Los Angeles Lakers',
-//     position: 'F',
-//     height_feet: 6,
-//     height_inches: 8,
-//     weight_pounds: 250,
-//   }
-// ]
 export default function App() {
 
   const [playerName, setPlayerName] = useState([]);
+  const [dataPlayer, setDataPlayer] = useState([]);
+  const [playerPic, setPlayerPic] = useState([]);
+  const [dataPic, setDataPic] = useState([]);
+  const [playerStats, setPlayerStats] = useState({});
+
+
+  const handleSubmit = (e) => {
+
+    e.preventDefault();
+    fetchData();
+    getStats();
+  }
+
+  const handleChange = (e) => {
+    let replace = e.target.value.split(" ").join("_")
+
+    setPlayerName(replace)
+    if (replace.length > 0) {
+      setPlayerName(replace);
+      // console.log(playerName)
+    }
+    else {
+      alert("please type player name")
+    }
+    let playerMod = e.target.value.split(' ').reverse().join('/')
+    setPlayerPic(playerMod)
+  }
+
+  const team = dataPlayer && dataPlayer.team ? dataPlayer.team.full_name : null;
+
+
+  const fetchData = () => {
+    console.log(playerName)
+    const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
+    const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
+    /* const playerStats = `https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playa}`;*/
+
+    const getPlayer = axios.get(playerAPI);
+    const getPic = axios.get(playerPicAPI);
+    // const getStats = axios.get(playerStats);
+
+
+    axios.all([getPlayer, getPic]).then(
+      axios.spread((...allData) => {
+        // const allStats = allData[2].data.data[0]
+        //  setPlayerStats(allStats)
+        if (allData[0].data.data[0] === undefined) {
+          alert("player injured")
+        }
+        else if (allData[0].data.data.length > 1) {
+          alert("specify name more")
+          allData[0].data.data = null;
+        }
+        getStats(allData[0].data.data[0].id)
+        //  await getStats()
+        const allDataPlayer = allData[0].data.data[0]
+        const getNBAPlayerPic = allData[1].config.url
+        // console.log(allData[2].data.data[0])
+        // console.log(allStats)
+        setDataPlayer(allDataPlayer);
+        setDataPic(getNBAPlayerPic)
+        // setPlayerStats(allStats)
+        console.log(playerName)
+      })
+    ).catch(err => {
+      console.log(err);
+    })
+  }
+
+  const getStats = (playerId) => {
+    axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
+      .then(async res => {
+
+        setPlayerStats(res.data.data[0])
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+  console.log(playerStats)
+
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
+
+
+
+  return (
+    <div>
+      <header>
+        <div className="d-flex">
+          <img src="images/kobe-logo-sq.jpg" className="logo" />
+          <form onSubmit={handleSubmit}>
+            <div className="has-search">
+              <span className="fa fa-search form-control-feedback"></span>
+              <input type="text" className="form-control" placeholder="Search" onChange={handleChange} />
+
+            </div>
+          </form>
+        </div>
+      </header>
+      <div className="App">
+        <div className="maincontainer m-auto pt-3">
+          <div className="thecard">
+            <div className="thefront py-3">
+              <Card className="m-auto" style={{ width: '18rem' }}>
+                <Card.Img variant="top" src={dataPic} />
+                <Card.Body>
+                  <Card.Title>{dataPlayer["first_name"]} {dataPlayer["last_name"]}</Card.Title>
+                  <Card.Text>
+                    {team}
+                    <i className="fas fa-basketball-ball p-1"></i>
+
+                    {dataPlayer["position"]}
+                    <br />
+                    {dataPlayer["height_feet"]}'{dataPlayer["height_inches"]}
+                    <i className="fas fa-basketball-ball p-1"></i>
+                    {dataPlayer["weight_pounds"]}lbs
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
+            <div className="theback">
+              <div className="text-center card mt-5 m-auto">
+                season: {playerStats.season}
+                <br />
+                games played : {playerStats.games_played}
+                <br />
+                PPG : {playerStats.pts}
+                <br />
+                AST : {playerStats.ast}
+                <br />
+                REB : {playerStats.reb}
+                <br />
+                BLK : {playerStats.blk}
+                <br />
+                STL : {playerStats.stl}
+                <br />
+                FG% : {playerStats.fg_pct}
+                <br />
+                3PT% : {playerStats.fg3_pct}
+                <br />
+                FT% : {playerStats.ft_pct}
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+/*
+export default function App() {
+
+  const [playerName, setPlayerName] = useState("");
   const [playerPic, setPlayerPic] = useState([]);
   const [playerStats, setPlayerStats ] = useState({});
+  const [data, setData] = useState([]);
+  const [picName, setPicName] = useState([]);
 
 
   const handleSubmit = (e) => {
@@ -48,28 +197,29 @@ export default function App() {
       alert("please type player name")
     }
      let playerMod = e.target.value.split(' ').reverse().join('/')
-    setPlayerPic(playerMod)
+
+    setPicName(playerMod)
   }
 
   const team = playerName && playerName.team ? playerName.team.full_name : null;
-let playa = playerName.id
-console.log(playa)
 
+  console.log(picName)
   const fetchData = () => {
-    console.log(playerName)
+
+    console.log(picName)
+    // const playerAPI = `https://www.balldontlie.io/api/v1/players?per_page=10`;
     const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
-    const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
-    /* const playerStats = `https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playa}`;*/
+    const playerPicAPI = `https://nba-players.herokuapp.com/players/${picName}`;
+
 
     const getPlayer = axios.get(playerAPI);
     const getPic = axios.get(playerPicAPI);
-    // const getStats = axios.get(playerStats);
+
 
 
     axios.all([getPlayer, getPic]).then(
       axios.spread((...allData) => {
-    // const allStats = allData[2].data.data[0]
-    //  setPlayerStats(allStats)
+
       if(allData[0].data.data[0] === undefined) {
         alert("player injured")
       }
@@ -79,30 +229,33 @@ console.log(playa)
        }
      getStats(allData[0].data.data[0].id)
       //  await getStats()
-       const allDataPlayer = allData[0].data.data[0]
-        const getNBAPlayerPic = allData[1].config.url
-        // console.log(allData[2].data.data[0])
-        // console.log(allStats)
-        setPlayerName(allDataPlayer);
-        setPlayerPic(getNBAPlayerPic)
-        // setPlayerStats(allStats)
-        console.log(playerName)
-      })
-    ).catch(err => {
-      console.log(err);
-    })
-  }
+       const allDataPlayer = allData[0].data.data
+      //  /*const allDataPlayer = allData[0].data.data[0]*/
+  //       const getNBAPlayerPic = allData[1].config.url
 
-  const getStats = ( playerId) => {
-    axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
-    .then(async res => {
+  //       setData(allDataPlayer);
+  //       setPlayerPic(getNBAPlayerPic)
 
-      setPlayerStats(res.data.data[0])
-    }).catch(err => {
-      console.log(err)
-    })
-  }
-console.log(playerStats)
+
+  //     })
+  //   ).catch(err => {
+  //     console.log(err);
+  //   })
+  // }
+
+  // const getStats = ( playerId) => {
+  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
+  //   .then(async res => {
+
+  //     setPlayerStats(res.data.data[0])
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }
+
+  // const handleInput = () => {
+  //   console.log(data.first_name)
+  // }
 
 
   // useEffect(() => {
@@ -110,63 +263,88 @@ console.log(playerStats)
   // }, [])
 
 
+// console.log(playerName)
+//   // const team = playerName && playerName.team ? playerName.team.full_name : null;
 
-  return (
-    <div>
-      <header>
-        <div className="d-flex">
-          <img src="images/kobe-logo-sq.jpg" className="logo" />
-          <form onSubmit={handleSubmit}>
-            <div className="has-search">
-              <span className="fa fa-search form-control-feedback"></span>
-              <input type="text" className="form-control" placeholder="Search" onChange={handleChange} />
-              <input type="submit" value="ball"/>
-            </div>
-          </form>
-         </div>
-      </header>
-      <div className="App">
-        <div className="maincontainer m-auto pt-3">
-          <div className="thecard">
-            <div className="thefront py-3">
-              <Card className="m-auto" style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={playerPic} />
-                <Card.Body>
-                  <Card.Title>{playerName["first_name"]} {playerName["last_name"]}</Card.Title>
-                  <Card.Text>
-                    {team}
-                    <i className="fas fa-basketball-ball p-1"></i>
+// console.log(data[0])
+// console.log(playerPic)
+//   return (
+//     <div>
+//       <header>
+//         <div className="d-flex">
+//           <img src="images/kobe-logo-sq.jpg" className="logo" />
+//           <form>
+//           {/* <form onSubmit={handleSubmit}> */}
+//             <div className="has-search">
+//               <span className="fa fa-search form-control-feedback"></span>
+//               <input type="text" className="form-control" placeholder="Search Player..." onChange={handleChange} />
+//               <div className="search-list pl-3">
+//                 {data.filter((val) => {
+//                   if(playerName === "") {
+//                     return val;
+//                   } else if(val.first_name.toLowerCase().includes(playerName.toLowerCase())) {
+//                     return val
+//                     console.log(val)
+//                   }
+//                 }).map((val, key) => {
+//                   return <div className="fa fa-search d-flex pt-1"
+//                               key={key}
+//                               onClick={()=> {setPlayerName(val.first_name)}}>
 
-                    {playerName["position"]}
-                    <br />
-                    {playerName["height_feet"]}'{playerName["height_inches"]}
-                    <i className="fas fa-basketball-ball p-1"></i>
-                    {playerName["weight_pounds"]}lbs
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="theback">
-              <div className="text-center">
-                season: {playerStats.season}
-                <br/>
-                games played : {playerStats.games_played}
-                <br />
-                PPG : {playerStats.pts}
-                <br />
-                AST : {playerStats.ast}
-                <br />
-                REB : {playerStats.reb}
+//                     <p className="player-list pl-1">{val.first_name} {val.last_name}</p></div>
+//                 })}
+//               </div>
 
-              </div>
+//             </div>
+//           </form>
+//          </div>
+//       </header>
+//       <div className="App">
+//         <div className="maincontainer m-auto pt-3">
+//           <div className="thecard">
+//             <div className="thefront py-3">
+//               <Card className="m-auto" style={{ width: '18rem' }}>
+//                 <Card.Img variant="top" src={playerPic} />
+//                 <Card.Body>
+//                   <Card.Title>{}</Card.Title>
+//                   <Card.Text>
+//                     {team}
+//                     <i className="fas fa-basketball-ball p-1"></i>
 
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+//                     {playerName["position"]}
+//                     <br />
+//                     {playerName["height_feet"]}'{playerName["height_inches"]}
+//                     <i className="fas fa-basketball-ball p-1"></i>
+//                     {playerName["weight_pounds"]}lbs
+//                   </Card.Text>
+//                 </Card.Body>
+//               </Card>
+//             </div>
+//             <div className="theback">
+//               <div className="mt-2">
+//                 <input />
+//               </div>
+
+//               <div className="text-center card mt-5">
+//                 season: {playerStats.season}
+//                 <br/>
+//                 games played : {playerStats.games_played}
+//                 <br />
+//                 PPG : {playerStats.pts}
+//                 <br />
+//                 AST : {playerStats.ast}
+//                 <br />
+//                 REB : {playerStats.reb}
+
+//               </div>
+
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
 
 
 

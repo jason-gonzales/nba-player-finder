@@ -1,18 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { Card } from 'react-bootstrap';
 
 
 const Cards = (props) => {
 
-  // const [show, setShow] = React.useState(true);
-  console.log(props.dataPlayer, props.dataPic, props.playerStats)
+  const [season, setSeason] = useState([]);
+  const [playerStats, setPlayerStats] = useState([]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    getStats(props.dataPlayer.id,season);
+  }
+
+  const handleChange = (e) => {
+    setSeason(e.target.value)
+  }
+
+  const getStats = (playerId, playerSeason) => {
+    axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=${playerSeason}&player_ids[]=${playerId}`)
+      .then(async res => {
+
+        setPlayerStats(res.data.data[0])
+      }).catch(err => {
+        console.log(err)
+      })
+  }
+
+  console.log(playerStats)
   const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;
 
   if (props.dataPlayer.length === 0) {
-    return <div>NO card</div>;
+    return <div>
+      <img className="rookie-card mt-3" src="images/nba-card.jpg" alt="mj-card" />
+    </div>;
   } else {
     return (
-     <div className="maincontainer m-auto pt-3" >
+      <div className="maincontainer m-auto pt-3" >
         <div className="thecard">
           <div className="thefront py-3">
             <Card className="m-auto" style={{ width: '18rem' }}>
@@ -34,25 +58,34 @@ const Cards = (props) => {
           </div>
           <div className="theback">
             <div className="text-center card mt-5 m-auto">
-              season: {props.playerStats.season}
+              <form onSubmit={handleSubmit}>
+                <div className="has-search col-7 m-auto">
+                  <span className="fa fa-search form-control-feedback"></span>
+                  <input type="text"
+                    className="form-control mt-1"
+                    placeholder="Season"
+                    onChange={handleChange} />
+                </div>
+              </form>
+              season: {playerStats.season}
               <br />
-                games played : {props.playerStats.games_played}
+                games played : {playerStats.games_played}
               <br />
-                PPG : {props.playerStats.pts}
+                PPG : {playerStats.pts}
               <br />
-                AST : {props.playerStats.ast}
+                AST : {playerStats.ast}
               <br />
-               REB : {props.playerStats.reb}
+               REB : {playerStats.reb}
               <br />
-                BLK : {props.playerStats.blk}
+                BLK : {playerStats.blk}
               <br />
-                STL : {props.playerStats.stl}
+                STL : {playerStats.stl}
               <br />
-                FG% : {props.playerStats.fg_pct}
+                FG% : {playerStats.fg_pct}
               <br />
-                3PT% : {props.playerStats.fg3_pct}
+                3PT% : {playerStats.fg3_pct}
               <br />
-                FT% : {props.playerStats.ft_pct}
+                FT% : {playerStats.ft_pct}
             </div>
 
           </div>

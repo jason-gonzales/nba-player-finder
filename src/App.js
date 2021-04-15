@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import { Card } from 'react-bootstrap';
 import { get } from 'react-hook-form';
+import Cards from './Cards';
 // import styled from 'styled-components';
 
 // const Formtag = styled.form `
@@ -99,7 +100,7 @@ export default function App() {
   // }, [])
 
 
-
+console.log(dataPlayer)
   return (
     <div>
       <header>
@@ -115,52 +116,12 @@ export default function App() {
         </div>
       </header>
       <div className="App">
-        <div className="maincontainer m-auto pt-3">
-          <div className="thecard">
-            <div className="thefront py-3">
-              <Card className="m-auto" style={{ width: '18rem' }}>
-                <Card.Img variant="top" src={dataPic} />
-                <Card.Body>
-                  <Card.Title>{dataPlayer["first_name"]} {dataPlayer["last_name"]}</Card.Title>
-                  <Card.Text>
-                    {team}
-                    <i className="fas fa-basketball-ball p-1"></i>
+        <div>
 
-                    {dataPlayer["position"]}
-                    <br />
-                    {dataPlayer["height_feet"]}'{dataPlayer["height_inches"]}
-                    <i className="fas fa-basketball-ball p-1"></i>
-                    {dataPlayer["weight_pounds"]}lbs
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </div>
-            <div className="theback">
-              <div className="text-center card mt-5 m-auto">
-                season: {playerStats.season}
-                <br />
-                games played : {playerStats.games_played}
-                <br />
-                PPG : {playerStats.pts}
-                <br />
-                AST : {playerStats.ast}
-                <br />
-                REB : {playerStats.reb}
-                <br />
-                BLK : {playerStats.blk}
-                <br />
-                STL : {playerStats.stl}
-                <br />
-                FG% : {playerStats.fg_pct}
-                <br />
-                3PT% : {playerStats.fg3_pct}
-                <br />
-                FT% : {playerStats.ft_pct}
-
-              </div>
-
-            </div>
-          </div>
+          <Cards dataPlayer={dataPlayer}
+                 dataPic={dataPic}
+                 playerStats={playerStats}
+          />
         </div>
       </div>
     </div>
@@ -231,36 +192,36 @@ export default function App() {
       //  await getStats()
        const allDataPlayer = allData[0].data.data
       //  /*const allDataPlayer = allData[0].data.data[0]*/
-  //       const getNBAPlayerPic = allData[1].config.url
+//       const getNBAPlayerPic = allData[1].config.url
 
-  //       setData(allDataPlayer);
-  //       setPlayerPic(getNBAPlayerPic)
-
-
-  //     })
-  //   ).catch(err => {
-  //     console.log(err);
-  //   })
-  // }
-
-  // const getStats = ( playerId) => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
-  //   .then(async res => {
-
-  //     setPlayerStats(res.data.data[0])
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
-  // const handleInput = () => {
-  //   console.log(data.first_name)
-  // }
+//       setData(allDataPlayer);
+//       setPlayerPic(getNBAPlayerPic)
 
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
+//     })
+//   ).catch(err => {
+//     console.log(err);
+//   })
+// }
+
+// const getStats = ( playerId) => {
+//   axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
+//   .then(async res => {
+
+//     setPlayerStats(res.data.data[0])
+//   }).catch(err => {
+//     console.log(err)
+//   })
+// }
+
+// const handleInput = () => {
+//   console.log(data.first_name)
+// }
+
+
+// useEffect(() => {
+//   fetchData()
+// }, [])
 
 
 // console.log(playerName)

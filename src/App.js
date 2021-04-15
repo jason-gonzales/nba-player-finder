@@ -24,7 +24,7 @@ export default function App() {
 
     e.preventDefault();
     fetchData();
-    getStats();
+    // getStats();
   }
 
   const handleChange = (e) => {
@@ -49,17 +49,15 @@ export default function App() {
     console.log(playerName)
     const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
     const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
-    /* const playerStats = `https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playa}`;*/
+
 
     const getPlayer = axios.get(playerAPI);
     const getPic = axios.get(playerPicAPI);
-    // const getStats = axios.get(playerStats);
 
 
     axios.all([getPlayer, getPic]).then(
       axios.spread((...allData) => {
-        // const allStats = allData[2].data.data[0]
-        //  setPlayerStats(allStats)
+
         if (allData[0].data.data[0] === undefined) {
           alert("player injured")
         }
@@ -67,40 +65,35 @@ export default function App() {
           alert("specify name more")
           allData[0].data.data = null;
         }
-        getStats(allData[0].data.data[0].id)
-        //  await getStats()
+        // getStats(allData[0].data.data[0].id)
+
         const allDataPlayer = allData[0].data.data[0]
         const getNBAPlayerPic = allData[1].config.url
-        // console.log(allData[2].data.data[0])
-        // console.log(allStats)
+
         setDataPlayer(allDataPlayer);
         setDataPic(getNBAPlayerPic)
-        // setPlayerStats(allStats)
-        console.log(playerName)
+
       })
     ).catch(err => {
       console.log(err);
     })
   }
 
-  const getStats = (playerId) => {
-    axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
-      .then(async res => {
+  // const getStats = (playerId) => {
+  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
+  //     .then(async res => {
 
-        setPlayerStats(res.data.data[0])
-      }).catch(err => {
-        console.log(err)
-      })
-  }
-  console.log(playerStats)
+  //       setPlayerStats(res.data.data[0])
+  //     }).catch(err => {
+  //       console.log(err)
+  //     })
+  // }
 
 
   // useEffect(() => {
   //   fetchData()
   // }, [])
 
-
-console.log(dataPlayer)
   return (
     <div>
       <header>
@@ -109,8 +102,10 @@ console.log(dataPlayer)
           <form onSubmit={handleSubmit}>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
-              <input type="text" className="form-control" placeholder="Search" onChange={handleChange} />
-
+              <input type="text"
+                className="form-control"
+                placeholder="Search Player"
+                onChange={handleChange} />
             </div>
           </form>
         </div>
@@ -119,8 +114,8 @@ console.log(dataPlayer)
         <div>
 
           <Cards dataPlayer={dataPlayer}
-                 dataPic={dataPic}
-                 playerStats={playerStats}
+            dataPic={dataPic}
+            playerStats={playerStats}
           />
         </div>
       </div>

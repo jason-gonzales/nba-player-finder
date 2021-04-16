@@ -33,7 +33,7 @@ export default function App() {
     setPlayerName(replace)
     if (replace.length > 0) {
       setPlayerName(replace);
-      // console.log(playerName)
+      console.log(playerName)
     }
     else {
       alert("please type player name")

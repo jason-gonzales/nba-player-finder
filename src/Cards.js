@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
+import PercentFormatter from './PercentFormatter';
 
 
 const Cards = (props) => {
@@ -27,7 +28,9 @@ const Cards = (props) => {
       })
   }
 
-  console.log(playerStats)
+
+
+console.log(playerStats)
   const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;
 
   if (props.dataPlayer.length === 0) {
@@ -57,7 +60,7 @@ const Cards = (props) => {
             </Card>
           </div>
           <div className="theback">
-            <div className="text-center card mt-5 m-auto">
+            <div className="text-center card mt-4 m-auto">
               <form onSubmit={handleSubmit}>
                 <div className="has-search col-7 m-auto">
                   <span className="fa fa-search form-control-feedback"></span>
@@ -81,11 +84,11 @@ const Cards = (props) => {
               <br />
                 STL : {playerStats.stl}
               <br />
-                FG% : {playerStats.fg_pct}
+                FG% : {PercentFormatter(playerStats.fg_pct)}
               <br />
-                3PT% : {playerStats.fg3_pct}
+                3PT% : {PercentFormatter(playerStats.fg3_pct)}
               <br />
-                FT% : {playerStats.ft_pct}
+                FT% : {PercentFormatter(playerStats.ft_pct)}
             </div>
 
           </div>

@@ -25,29 +25,30 @@ export default function App() {
 
     e.preventDefault();
     fetchData();
-    // getStats();
+
   }
 
   const handleChange = (e) => {
     // let replace = e.target.value.split(" ").join("_")
-    // console.log(e.target.value)
+
     const {value} = e.target
+
     axios.get(`https://www.balldontlie.io/api/v1/players?search=${value}`)
     .then(async res => {
-      setDataPlayer(res.data.data)
+      setSearch(res.data.data)
     })
        let playerMod = e.target.value.split(' ').reverse().join('/')
    setPlayerPic(playerMod)
   }
 // console.log(dataPlayer)
-console.log(playerPic)
-const handleClick = (e) => {
-  if(dataPlayer) {
-  console.log(dataPlayer.first_name)
-  }
-  fetchData();
+// console.log(playerPic)
 
+const handleClick = (e) => {
+console.log(e.target)
+  console.log(search)
+setDataPlayer(search)
 }
+
   // const handleChange = (e) => {
   //   let replace = e.target.value.split(" ").join("_")
 
@@ -68,16 +69,21 @@ const handleClick = (e) => {
 
   const fetchData = () => {
     console.log(playerName)
-    const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
-    const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
+    // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
+    // const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
+
+    axios.get(`https://nba-players.herokuapp.com/players/${playerPic}`)
+    .then(async res => {
+      console.log(res.data.data)
+    })
 
 
-    const getPlayer = axios.get(playerAPI);
-    const getPic = axios.get(playerPicAPI);
+    // const getPlayer = axios.get(playerAPI);
+    // const getPic = axios.get(playerPicAPI);
 
 
-    axios.all([getPlayer, getPic]).then(
-      axios.spread((...allData) => {
+    // axios.all([getPlayer, getPic]).then(
+    //   axios.spread((...allData) => {
 
         // if (allData[0].data.data[0] === undefined) {
         //   alert("player injured")
@@ -88,14 +94,15 @@ const handleClick = (e) => {
         // }
         // getStats(allData[0].data.data[0].id)
 
-        const allDataPlayer = allData[0].data.data[0]
-        const getNBAPlayerPic = allData[1].config.url
+        // const allDataPlayer = allData[0].data.data[0]
+        // const getNBAPlayerPic = allData[1].config.url
 
-        setDataPlayer(allDataPlayer);
-        setDataPic(getNBAPlayerPic)
+        // setDataPlayer(allDataPlayer);
+        // setDataPic(getNBAPlayerPic)
 
-      })
-    ).catch(err => {
+      // })
+    // )
+    .catch(err => {
       console.log(err);
     })
   }
@@ -105,16 +112,17 @@ const handleClick = (e) => {
       <header>
         <div className="d-flex">
           <img src="images/kobe-logo-sq.jpg" className="logo" />
-          <form onSubmit={handleSubmit}>
+          {/* <form onSubmit={handleSubmit}> */}
+          <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
               <input type ="text" name = {"search"} placehodler={"searchhh"}
                 onChange={handleChange}/>
-                {dataPlayer?.length > 0 &&
+                {search?.length > 0 &&
                 <div>
-                  {dataPlayer?.map((el, i ) =>
+                  {search?.map((el, i ) =>
                   <div key={i}>
-                    <span onClick={handleClick}>{el.first_name} {el.last_name}</span>
+                    <span onClick={handleClick} name={"value"}>{el.first_name} {el.last_name}</span>
                     </div>
                   )}
                   </div>}

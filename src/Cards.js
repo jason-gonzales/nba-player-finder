@@ -30,7 +30,7 @@ const Cards = (props) => {
 
 
 
-console.log(playerStats)
+console.log(props.dataPlayer["frist_name"])
   const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;
 
   if (props.dataPlayer.length === 0) {

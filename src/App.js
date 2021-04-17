@@ -18,6 +18,7 @@ export default function App() {
   const [playerPic, setPlayerPic] = useState([]);
   const [dataPic, setDataPic] = useState([]);
   const [playerStats, setPlayerStats] = useState({});
+  const [search, setSearch] = useState([]);
 
 
   const handleSubmit = (e) => {
@@ -28,19 +29,39 @@ export default function App() {
   }
 
   const handleChange = (e) => {
-    let replace = e.target.value.split(" ").join("_")
-
-    setPlayerName(replace)
-    if (replace.length > 0) {
-      setPlayerName(replace);
-      console.log(playerName)
-    }
-    else {
-      alert("please type player name")
-    }
-    let playerMod = e.target.value.split(' ').reverse().join('/')
-    setPlayerPic(playerMod)
+    // let replace = e.target.value.split(" ").join("_")
+    // console.log(e.target.value)
+    const {value} = e.target
+    axios.get(`https://www.balldontlie.io/api/v1/players?search=${value}`)
+    .then(async res => {
+      setDataPlayer(res.data.data)
+    })
+       let playerMod = e.target.value.split(' ').reverse().join('/')
+   setPlayerPic(playerMod)
   }
+// console.log(dataPlayer)
+console.log(playerPic)
+const handleClick = (e) => {
+  if(dataPlayer) {
+  console.log(dataPlayer.first_name)
+  }
+  fetchData();
+
+}
+  // const handleChange = (e) => {
+  //   let replace = e.target.value.split(" ").join("_")
+
+  //   setPlayerName(replace)
+  //   if (replace.length > 0) {
+  //     setPlayerName(replace);
+  //     console.log(playerName)
+  //   }
+  //   else {
+  //     alert("please type player name")
+  //   }
+  //   let playerMod = e.target.value.split(' ').reverse().join('/')
+  //   setPlayerPic(playerMod)
+  // }
 
   const team = dataPlayer && dataPlayer.team ? dataPlayer.team.full_name : null;
 
@@ -58,13 +79,13 @@ export default function App() {
     axios.all([getPlayer, getPic]).then(
       axios.spread((...allData) => {
 
-        if (allData[0].data.data[0] === undefined) {
-          alert("player injured")
-        }
-        else if (allData[0].data.data.length > 1) {
-          alert("specify name more")
-          allData[0].data.data = null;
-        }
+        // if (allData[0].data.data[0] === undefined) {
+        //   alert("player injured")
+        // }
+        // else if (allData[0].data.data.length > 1) {
+        //   alert("specify name more")
+        //   allData[0].data.data = null;
+        // }
         // getStats(allData[0].data.data[0].id)
 
         const allDataPlayer = allData[0].data.data[0]
@@ -79,21 +100,6 @@ export default function App() {
     })
   }
 
-  // const getStats = (playerId) => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=2018&player_ids[]=${playerId}`)
-  //     .then(async res => {
-
-  //       setPlayerStats(res.data.data[0])
-  //     }).catch(err => {
-  //       console.log(err)
-  //     })
-  // }
-
-
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
-
   return (
     <div>
       <header>
@@ -102,10 +108,20 @@ export default function App() {
           <form onSubmit={handleSubmit}>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
-              <input type="text"
+              <input type ="text" name = {"search"} placehodler={"searchhh"}
+                onChange={handleChange}/>
+                {dataPlayer?.length > 0 &&
+                <div>
+                  {dataPlayer?.map((el, i ) =>
+                  <div key={i}>
+                    <span onClick={handleClick}>{el.first_name} {el.last_name}</span>
+                    </div>
+                  )}
+                  </div>}
+              {/* <input type="text"
                 className="form-control"
                 placeholder="Search Player"
-                onChange={handleChange} />
+                onChange={handleChange} /> */}
             </div>
           </form>
         </div>

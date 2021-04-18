@@ -44,11 +44,14 @@ export default function App() {
 // console.log(playerPic)
 
 const handleClick = (e) => {
-console.log(e.target)
-  console.log(search)
-setDataPlayer(search)
-}
+  e.preventDefault();
+const value = e.target.selectedIndex
+  console.log(value)
 
+setDataPlayer(search)
+
+}
+console.log(dataPlayer)
   // const handleChange = (e) => {
   //   let replace = e.target.value.split(" ").join("_")
 
@@ -116,13 +119,17 @@ setDataPlayer(search)
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
-              <input type ="text" name = {"search"} placehodler={"searchhh"}
+              <input type ="text"  clasName="form-control" name = {"search"} placehodler={"searchhh"}
                 onChange={handleChange}/>
                 {search?.length > 0 &&
                 <div>
                   {search?.map((el, i ) =>
                   <div key={i}>
-                    <span onClick={handleClick} name={"value"}>{el.first_name} {el.last_name}</span>
+                    <span  name={"value"}>
+                      <div onClick={handleClick} value={el.first_name}>
+                      {el.first_name} {el.last_name}
+                      </div>
+                      </span>
                     </div>
                   )}
                   </div>}

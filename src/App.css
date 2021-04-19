@@ -120,14 +120,16 @@ width: 100%;
  /* position: relative; */
 }
 
-.player-list {
+.name-list {
   font-family: Arial, Helvetica, sans-serif;
-  font-weight: lighter;
+  font-weight: 100;
 }
 
-.rookie-card {
+.dropdown-list {
+position: absolute;
+background: #C9082A;
+width: 280px;
 
-  
 }
 /*Card*/
 

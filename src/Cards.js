@@ -29,8 +29,6 @@ const Cards = (props) => {
   }
 
 
-
-console.log(props.dataPlayer["first_name"])
   const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;
 
   if (props.dataPlayer.length === 0) {

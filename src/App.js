@@ -2,7 +2,6 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
-import { Card } from 'react-bootstrap';
 import { get } from 'react-hook-form';
 import Cards from './Cards';
 // import styled from 'styled-components';
@@ -19,6 +18,7 @@ export default function App() {
   const [dataPic, setDataPic] = useState([]);
   const [playerStats, setPlayerStats] = useState({});
   const [search, setSearch] = useState([]);
+  const [dropdown, setDropdown] = useState(false)
 
 
   const handleSubmit = (e) => {
@@ -32,10 +32,13 @@ export default function App() {
     // let replace = e.target.value.split(" ").join("_")
 
     const {value} = e.target
-
+console.log(value.length)
     axios.get(`https://www.balldontlie.io/api/v1/players?search=${value}`)
     .then(async res => {
+      if(value.length >= 2) {
       setSearch(res.data.data)
+      setDropdown(true)
+      }
     })
        let playerMod = e.target.value.split(' ').reverse().join('/')
    setPlayerPic(playerMod)
@@ -48,14 +51,15 @@ const value = e.target.innerText
 let clicked = null
 for(let i = 0; i < search.length; i++) {
  clicked = search[i].first_name + " " + search[i].last_name;
+ console.log(value, clicked)
  if(value === clicked) {
    setDataPlayer(search[i])
  }
 }
   let playerMod = value.split(' ').reverse().join('/')
-  console.log(playerMod)
   setPlayerPic(playerMod)
 fetchData();
+setDropdown(false)
 }
 console.log(dataPlayer)
   // const handleChange = (e) => {
@@ -75,9 +79,7 @@ console.log(dataPlayer)
 
   const team = dataPlayer && dataPlayer.team ? dataPlayer.team.full_name : null;
 
-console.log(playerPic)
   const fetchData = () => {
-    console.log(playerName)
     // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
     // const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
 
@@ -115,7 +117,7 @@ console.log(playerPic)
       console.log(err);
     })
   }
-
+console.log(dataPic)
   return (
     <div>
       <header>
@@ -131,11 +133,11 @@ console.log(playerPic)
                 className="form-control"
                 placeholder="Search Player"
                 onChange={handleChange} />
-                {search?.length > 0 &&
-                <div>
+                {dropdown && search?.length > 0 &&
+                <div className="dropdown-list p-2">
                   {search?.map((el, i ) =>
-                  <div key={i}>
-                      <div onClick={handleClick} value={el.first_name}>
+                    <div key={i} className="fa fa-search d-flex p-1">
+                      <div className="ml-1 name-list" onClick={handleClick} value={el.first_name}>
                       {el.first_name} {el.last_name}
                       </div>
                     </div>

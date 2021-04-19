@@ -40,16 +40,22 @@ export default function App() {
        let playerMod = e.target.value.split(' ').reverse().join('/')
    setPlayerPic(playerMod)
   }
-// console.log(dataPlayer)
-// console.log(playerPic)
+
 
 const handleClick = (e) => {
   e.preventDefault();
-const value = e.target.selectedIndex
-  console.log(value)
-
-setDataPlayer(search)
-
+const value = e.target.innerText
+let clicked = null
+for(let i = 0; i < search.length; i++) {
+ clicked = search[i].first_name + " " + search[i].last_name;
+ if(value === clicked) {
+   setDataPlayer(search[i])
+ }
+}
+  let playerMod = value.split(' ').reverse().join('/')
+  console.log(playerMod)
+  setPlayerPic(playerMod)
+fetchData();
 }
 console.log(dataPlayer)
   // const handleChange = (e) => {
@@ -69,7 +75,7 @@ console.log(dataPlayer)
 
   const team = dataPlayer && dataPlayer.team ? dataPlayer.team.full_name : null;
 
-
+console.log(playerPic)
   const fetchData = () => {
     console.log(playerName)
     // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
@@ -77,7 +83,7 @@ console.log(dataPlayer)
 
     axios.get(`https://nba-players.herokuapp.com/players/${playerPic}`)
     .then(async res => {
-      console.log(res.data.data)
+      setDataPic(res.config.url)
     })
 
 
@@ -119,17 +125,19 @@ console.log(dataPlayer)
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
-              <input type ="text"  clasName="form-control" name = {"search"} placehodler={"searchhh"}
-                onChange={handleChange}/>
+              {/* <input type ="text"  clasName="form-control" name = {"search"} placehodler={"searchhh"}
+                onChange={handleChange}/> */}
+              <input type="text"
+                className="form-control"
+                placeholder="Search Player"
+                onChange={handleChange} />
                 {search?.length > 0 &&
                 <div>
                   {search?.map((el, i ) =>
                   <div key={i}>
-                    <span  name={"value"}>
                       <div onClick={handleClick} value={el.first_name}>
                       {el.first_name} {el.last_name}
                       </div>
-                      </span>
                     </div>
                   )}
                   </div>}

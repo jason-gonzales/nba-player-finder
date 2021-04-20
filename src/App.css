@@ -129,6 +129,7 @@ width: 100%;
 position: absolute;
 background: #C9082A;
 width: 280px;
+z-index: 10;
 
 }
 /*Card*/

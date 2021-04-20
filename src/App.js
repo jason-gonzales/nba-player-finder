@@ -16,23 +16,22 @@ export default function App() {
   const [dataPlayer, setDataPlayer] = useState([]);
   const [playerPic, setPlayerPic] = useState([]);
   const [dataPic, setDataPic] = useState([]);
-  const [playerStats, setPlayerStats] = useState({});
   const [search, setSearch] = useState([]);
   const [dropdown, setDropdown] = useState(false)
 
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = (e) => {
 
-    e.preventDefault();
-    fetchData();
+  //   e.preventDefault();
+  //   fetchData();
 
-  }
+  // }
 
   const handleChange = (e) => {
     // let replace = e.target.value.split(" ").join("_")
 
     const {value} = e.target
-console.log(value.length)
+
     axios.get(`https://www.balldontlie.io/api/v1/players?search=${value}`)
     .then(async res => {
       if(value.length >= 2) {
@@ -40,8 +39,8 @@ console.log(value.length)
       setDropdown(true)
       }
     })
-       let playerMod = e.target.value.split(' ').reverse().join('/')
-   setPlayerPic(playerMod)
+  //      let playerMod = e.target.value.split(' ').reverse().join('/')
+  //  setPlayerPic(playerMod)
   }
 
 
@@ -54,14 +53,15 @@ for(let i = 0; i < search.length; i++) {
  console.log(value, clicked)
  if(value === clicked) {
    setDataPlayer(search[i])
+   let playerMod = value.split(' ').reverse().join('/')
+   fetchData(playerMod)
+
  }
 }
-  let playerMod = value.split(' ').reverse().join('/')
-  setPlayerPic(playerMod)
-fetchData();
+
 setDropdown(false)
 }
-console.log(dataPlayer)
+// console.log(dataPlayer)
   // const handleChange = (e) => {
   //   let replace = e.target.value.split(" ").join("_")
 
@@ -77,14 +77,15 @@ console.log(dataPlayer)
   //   setPlayerPic(playerMod)
   // }
 
-  const team = dataPlayer && dataPlayer.team ? dataPlayer.team.full_name : null;
-
-  const fetchData = () => {
+console.log(playerPic)
+  const fetchData = (pic) => {
+console.log(pic)
     // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
     // const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
 
-    axios.get(`https://nba-players.herokuapp.com/players/${playerPic}`)
+    axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
     .then(async res => {
+      console.log(res.data, "res.confg" + res.config.url)
       setDataPic(res.config.url)
     })
 
@@ -117,7 +118,7 @@ console.log(dataPlayer)
       console.log(err);
     })
   }
-console.log(dataPic)
+
   return (
     <div>
       <header>
@@ -127,8 +128,6 @@ console.log(dataPic)
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
-              {/* <input type ="text"  clasName="form-control" name = {"search"} placehodler={"searchhh"}
-                onChange={handleChange}/> */}
               <input type="text"
                 className="form-control"
                 placeholder="Search Player"
@@ -156,7 +155,6 @@ console.log(dataPic)
 
           <Cards dataPlayer={dataPlayer}
             dataPic={dataPic}
-            playerStats={playerStats}
           />
         </div>
       </div>

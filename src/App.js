@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 // import {useForm} from 'react-hook-form';
 import './App.css';
-import { get } from 'react-hook-form';
+import { get, set } from 'react-hook-form';
 import Cards from './Cards';
 // import styled from 'styled-components';
 
@@ -18,6 +18,7 @@ export default function App() {
   const [dataPic, setDataPic] = useState([]);
   const [search, setSearch] = useState([]);
   const [dropdown, setDropdown] = useState(false)
+  const [video, setVideo] = useState([]);
 
 
   // const handleSubmit = (e) => {
@@ -55,11 +56,11 @@ for(let i = 0; i < search.length; i++) {
    setDataPlayer(search[i])
    let playerMod = value.split(' ').reverse().join('/')
    fetchData(playerMod)
-
- }
 }
 
+}
 setDropdown(false)
+  fetchYouTube();
 }
 // console.log(dataPlayer)
   // const handleChange = (e) => {
@@ -79,17 +80,20 @@ setDropdown(false)
 
 console.log(playerPic)
   const fetchData = (pic) => {
-console.log(pic)
-    // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
-    // const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
 
-    axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
+axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
     .then(async res => {
-      console.log(res.data, "res.confg" + res.config.url)
+      if(res.data === "Sorry, that player was not found. Please check the spelling.") {
+        setDataPic("images/kobe-logo-sq.jpg")
+      } else {
       setDataPic(res.config.url)
+      }
+    }).catch(err => {
+      console.log(err);
     })
 
-
+    // const playerAPI = `https://www.balldontlie.io/api/v1/players?search=${playerName}`;
+    // const playerPicAPI = `https://nba-players.herokuapp.com/players/${playerPic}`;
     // const getPlayer = axios.get(playerAPI);
     // const getPic = axios.get(playerPicAPI);
 
@@ -114,10 +118,17 @@ console.log(pic)
 
       // })
     // )
-    .catch(err => {
-      console.log(err);
-    })
+
   }
+const fetchYouTube = () => {
+  axios.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=stephen%20curry&key=AIzaSyCwj1w6AoM4xffrtjbfGMBbURTVCuxGHrA&maxResults=1")
+  .then(async res => {
+    console.log("metainfo", res.data.items, "selectedVideo",res.data.items[0].id.videoId)
+    setVideo(res.data.items)
+  }).catch(err => {
+    console.log(err)
+  })
+}
 
   return (
     <div>
@@ -152,7 +163,7 @@ console.log(pic)
       </header>
       <div className="App">
         <div>
-
+          {/* <img src={video[0].snippet.thumbnails.high.url} alt="tube-img"/> */}
           <Cards dataPlayer={dataPlayer}
             dataPic={dataPic}
           />

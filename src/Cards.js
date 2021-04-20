@@ -21,7 +21,7 @@ const Cards = (props) => {
   const getStats = (playerId, playerSeason) => {
     axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=${playerSeason}&player_ids[]=${playerId}`)
       .then(async res => {
-
+console.log(res.data.data)
         setPlayerStats(res.data.data[0])
       }).catch(err => {
         console.log(err)

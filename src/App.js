@@ -1,20 +1,13 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-// import {useForm} from 'react-hook-form';
+import React, { useState } from 'react';
 import './App.css';
-import { get, set } from 'react-hook-form';
 import Cards from './Cards';
 // import styled from 'styled-components';
 
-// const Formtag = styled.form `
-// color: red;
-// font-size: 40px;`
 
 export default function App() {
 
-  // const [playerName, setPlayerName] = useState([]);
   const [dataPlayer, setDataPlayer] = useState([]);
-  // const [playerPic, setPlayerPic] = useState([]);
   const [dataPic, setDataPic] = useState([]);
   const [search, setSearch] = useState([]);
   const [dropdown, setDropdown] = useState(false)
@@ -29,7 +22,6 @@ export default function App() {
   // }
 
   const handleChange = (e) => {
-    // let replace = e.target.value.split(" ").join("_")
 
     const {value} = e.target
 
@@ -40,8 +32,6 @@ export default function App() {
       setDropdown(true)
       }
     })
-  //      let playerMod = e.target.value.split(' ').reverse().join('/')
-  //  setPlayerPic(playerMod)
   }
 
 
@@ -176,11 +166,14 @@ const {medium ={}} = thumbnails;
           <img className="tv"src="images/nba-tv.png" alt="tv"/>
         </div>
         <div className="video"> {
-          video ?
+          video.length === 0 ? <img src="images/youtube-logo.png" alt="tube-log" /> :
+
           <a href={`http://www.youtube.com/watch?v=${id.videoId}`}>
           <img src={medium.url} alt="video-thumbnail"/>
+            <div className="">
           <h3 className="video-title">{title}</h3>
-            </a> :  <img src="images/youtube-logo.png" alt="tube-log" />}
+          </div>
+            </a>}
         </div>
       </div>
     </div>
@@ -365,72 +358,3 @@ export default function App() {
 //     </div>
 //   );
 // }
-
-
-
-
-
-{/* <form onSubmit={handleSubmit}>
-        <label>
-    Player Name
-          <input
-          type ="text"
-          // value={playerName}
-          onChange={e => handleChange(e)}
-           placeholder="enter player name"
-          />
-        </label>
-        <br/>
-        <label>
-    season
-        <input
-        type="text"
-
-        placeholder="enter year"
-        />
-        </label>
-        <input
-        type="submit"
-        value="Submit"/>
-      </form>
-
-        season : {playerStats["season"]}
-        <br/>
-        games played : {playerStats["games_played"]}
-        <br/>
-      PPG : {playerStats["pts"]} */}
-
-
-        // const getPlayerId = () => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/players?search=lebron`)
-  //   .then(async res => {
-  //     console.log(res.data.data)
-  //     if(res.data.data[0] === undefined) {
-  //       alert("Player is injured")
-  //     } else if(res.data.data.length > 1) {
-  //       alert("Specify name more")
-  //     }
-  //   else {
-
-  //       await getStats(res.data.data[0].id)
-  //     }
-
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
-  // const getStats = ( playerId) => {
-  //   axios.get(`https://www.balldontlie.io/api/v1/season_averages?seasons[]=2018&seasons[]=2015&player_ids[]=${playerId}`)
-  //   .then(async res => {
-  //     console.log(res.data.data)
-  //     setPlayerStats(res.data.data[0])
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   getPlayerId();
-
-  // })

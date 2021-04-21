@@ -12,9 +12,9 @@ import Cards from './Cards';
 
 export default function App() {
 
-  const [playerName, setPlayerName] = useState([]);
+  // const [playerName, setPlayerName] = useState([]);
   const [dataPlayer, setDataPlayer] = useState([]);
-  const [playerPic, setPlayerPic] = useState([]);
+  // const [playerPic, setPlayerPic] = useState([]);
   const [dataPic, setDataPic] = useState([]);
   const [search, setSearch] = useState([]);
   const [dropdown, setDropdown] = useState(false)
@@ -60,7 +60,7 @@ for(let i = 0; i < search.length; i++) {
 
 }
 setDropdown(false)
-  fetchYouTube();
+  fetchYouTube(clicked);
 }
 // console.log(dataPlayer)
   // const handleChange = (e) => {
@@ -78,7 +78,6 @@ setDropdown(false)
   //   setPlayerPic(playerMod)
   // }
 
-console.log(playerPic)
   const fetchData = (pic) => {
 
 axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
@@ -120,16 +119,21 @@ axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
     // )
 
   }
-const fetchYouTube = () => {
-  axios.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=stephen%20curry&key={}&maxResults=1")
+const fetchYouTube = (name) => {
+  axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${name}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=1`)
   .then(async res => {
-    console.log("metainfo", res.data.items, "selectedVideo",res.data.items[0].id.videoId)
-    setVideo(res.data.items)
+    // console.log("metainfo", res.data.items, "selectedVideo",res.data.items[0].id.videoId)
+    setVideo(res.data.items[0])
   }).catch(err => {
     console.log(err)
   })
 }
+console.log(video)
+const {id ={} ,snippet ={}} = video;
 
+const {title, thumbnails ={}} = snippet;
+console.log("snippet", snippet)
+const {medium ={}} = thumbnails;
   return (
     <div>
       <header>
@@ -167,6 +171,16 @@ const fetchYouTube = () => {
           <Cards dataPlayer={dataPlayer}
             dataPic={dataPic}
           />
+        </div>
+        <div className="tv-container">
+          <img className="tv"src="images/nba-tv.png" alt="tv"/>
+        </div>
+        <div className="video"> {
+          video ?
+          <a href={`http://www.youtube.com/watch?v=${id.videoId}`}>
+          <img src={medium.url} alt="video-thumbnail"/>
+          <h3 className="video-title">{title}</h3>
+            </a> :  <img src="images/youtube-logo.png" alt="tube-log" />}
         </div>
       </div>
     </div>

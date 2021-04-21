@@ -121,7 +121,7 @@ axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
 
   }
 const fetchYouTube = () => {
-  axios.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=stephen%20curry&key=AIzaSyCwj1w6AoM4xffrtjbfGMBbURTVCuxGHrA&maxResults=1")
+  axios.get("https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=stephen%20curry&key={}&maxResults=1")
   .then(async res => {
     console.log("metainfo", res.data.items, "selectedVideo",res.data.items[0].id.videoId)
     setVideo(res.data.items)

@@ -82,7 +82,7 @@ margin-left:10px;
   padding: 100%; */
 background-image: url('./hardwood.jpg');
 background-size: cover;
-height: 800px;
+height: 850px;
 width: 100%;
 
 }
@@ -214,4 +214,34 @@ width: 300px;
   to {
     transform: rotate(360deg);
   }
+}
+.tv-container {
+ height: 320px;
+}
+.tv {
+  height: 320px;
+  width:390px;
+  margin-left: -18px;
+
+}
+
+.video {
+  margin-top: -255px;
+  margin-left: -53px;
+  height: 200px;
+}
+.video img {
+  height: 219px;
+  width:245px;
+}
+
+.video-title{
+    width: 400px;
+    padding-left: 70px;
+    color: white;
+    padding-top: 30px;
+}
+
+a:link {
+  text-decoration : none!important;
 }

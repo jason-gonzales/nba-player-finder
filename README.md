@@ -1,6 +1,6 @@
 # nba-player-finder
 A front-end React.js project
-##Technologies Used
+## Technologies Used
 * React.js
 * Axios
 * Boostrap

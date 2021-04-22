@@ -75,15 +75,10 @@ margin-left:10px;
 } */
 .App {
   text-align: center;
-  /* background-image: url('./hardwood.jpg');
-
-  background-size:cover;
-  height: 100%;
-  padding: 100%; */
-background-image: url('./hardwood.jpg');
-background-size: cover;
-height: 850px;
-width: 100%;
+  background-image: url('./hardwood.jpg');
+  background-size: cover;
+  height: 1000px;
+  width: 100%;
 
 }
 
@@ -190,6 +185,10 @@ width: 300px;
   backface-visibility: hidden;
   transform: rotateY(180deg);
  background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
+}
+
+.no-record {
+  height: 300px;
 }
 
 .card-title {

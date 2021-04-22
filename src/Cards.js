@@ -21,7 +21,7 @@ const Cards = (props) => {
   const getStats = (playerId, playerSeason) => {
     axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=${playerSeason}&player_ids[]=${playerId}`)
       .then(async res => {
-console.log(res.data.data)
+// console.log(res.data.data)
         setPlayerStats(res.data.data[0])
       }).catch(err => {
         console.log(err)
@@ -67,26 +67,29 @@ console.log(res.data.data)
                     placeholder="Season"
                     onChange={handleChange} />
                 </div>
-              </form>
-              season: {playerStats.season}
-              <br />
+              </form> {playerStats ? <div className="py-2">
+                season: {playerStats.season}
+                <br />
                 games played : {playerStats.games_played}
-              <br />
+                <br />
                 PPG : {playerStats.pts}
-              <br />
+                <br />
                 AST : {playerStats.ast}
-              <br />
+                <br />
                REB : {playerStats.reb}
-              <br />
+                <br />
                 BLK : {playerStats.blk}
-              <br />
+                <br />
                 STL : {playerStats.stl}
-              <br />
+                <br />
                 FG% : {PercentFormatter(playerStats.fg_pct)}
-              <br />
+                <br />
                 3PT% : {PercentFormatter(playerStats.fg3_pct)}
-              <br />
+                <br />
                 FT% : {PercentFormatter(playerStats.ft_pct)}
+              </div> : <h1 className="no-record pt-5">Player did not play this season. Try again!</h1>}
+
+
             </div>
 
           </div>

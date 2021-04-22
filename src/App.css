@@ -9,7 +9,6 @@ html {
 }
 
 header {
-
   padding: .77rem 0;
   background-color: #1d428a;
   font-family: 'Poppins', sans-serif;
@@ -19,60 +18,26 @@ header {
 
 .logo {
   width: 50px;
-margin-left:10px;
+  margin-left:10px;
 
 }
 
 .has-search .form-control {
-    padding-left: 2.375rem;
+  padding-left: 2.375rem;
 }
 
 .has-search .form-control-feedback {
-    position: absolute;
-    z-index: 2;
-    display: block;
-    width: 2.375rem;
-    height: 2.375rem;
-    line-height: 2.375rem;
-    text-align: center;
-    pointer-events: none;
-    color: #aaa;
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
 }
 
-
-/* input {
-  width: 230px;
-  height: 40px;
-  background-color: #1d418a04;
-   border-radius: 4px;
-    border: 2px solid #ccc;
-} */
-
-/* .fas {
-  width: 20px;
-  height: 20px;
-} */
-
-/* .box {
-  width: 50px;
-  height: 50px;
-} */
-/* input[type=text] {
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  background-color: white;
-  background-image: url('search-icon.png');
-  background-position: 10px 10px;
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 40px;
-} */
-
-/* h1 .highlight {
-  color: #6c41ec;
-} */
 .App {
   text-align: center;
   background-image: url('./hardwood.jpg');
@@ -121,22 +86,19 @@ margin-left:10px;
 }
 
 .dropdown-list {
-position: absolute;
-background: #C9082A;
-width: 280px;
-z-index: 10;
+  position: absolute;
+  background: #C9082A;
+  width: 280px;
+  z-index: 10;
 
 }
 /*Card*/
 
 .card {
- border-radius: 30px !important;
-/*border: 3px solid rgb(255, 230, 0) !important; */
-/* border: double black !important;
-border-width: 10px !important; */
+  border-radius: 30px !important;
   box-shadow: 0 0 0 3px #000, 0 0 0 6px yellow, 0 0 0 9px #000;
-font-family: 'Rubik', sans-serif;
-width: 300px;
+  font-family: 'Rubik', sans-serif;
+  width: 300px;
 
 }
 
@@ -155,7 +117,7 @@ width: 300px;
 }
 
  .thecard {
-    position: absolute;
+  position: absolute;
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
@@ -175,7 +137,7 @@ width: 300px;
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-    background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
+  background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
 }
 .theback {
   position: absolute;
@@ -184,7 +146,7 @@ width: 300px;
   color: black;
   backface-visibility: hidden;
   transform: rotateY(180deg);
- background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
+  background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
 }
 
 .no-record {
@@ -215,7 +177,7 @@ width: 300px;
   }
 }
 .tv-container {
- height: 320px;
+  height: 320px;
 }
 .tv {
   height: 320px;
@@ -234,10 +196,10 @@ width: 300px;
 }
 
 .video-title{
-    padding-right:20px;
-    padding-left: 70px;
-    color: white;
-    padding-top: 30px;
+  padding-right:20px;
+  padding-left: 70px;
+  color: white;
+  padding-top: 30px;
 }
 
 a:link {

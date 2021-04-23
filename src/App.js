@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Cards from './Cards';
 import ReactPlayer from 'react-player';
+
 import Modal from 'react-modal';
 
 
@@ -14,14 +15,6 @@ export default function App() {
   const [dropdown, setDropdown] = useState(false)
   const [video, setVideo] = useState([]);
   const [modalOpen, setModalOpen] = useState(false)
-
-
-  // const handleSubmit = (e) => {
-
-  //   e.preventDefault();
-  //   fetchData();
-
-  // }
 
   const handleChange = (e) => {
 
@@ -54,21 +47,6 @@ export default function App() {
     setDropdown(false)
     fetchYouTube(clicked);
   }
-  // console.log(dataPlayer)
-  // const handleChange = (e) => {
-  //   let replace = e.target.value.split(" ").join("_")
-
-  //   setPlayerName(replace)
-  //   if (replace.length > 0) {
-  //     setPlayerName(replace);
-  //     console.log(playerName)
-  //   }
-  //   else {
-  //     alert("please type player name")
-  //   }
-  //   let playerMod = e.target.value.split(' ').reverse().join('/')
-  //   setPlayerPic(playerMod)
-  // }
 
   const fetchData = (pic) => {
 
@@ -149,34 +127,23 @@ export default function App() {
                     </div>
                   )}
                 </div>}
-              {/* <input type="text"
-                className="form-control"
-                placeholder="Search Player"
-                onChange={handleChange} /> */}
             </div>
           </form>
         </div>
       </header>
       <div className="App">
+        {/* <VideoModal /> */}
         <Modal isOpen={modalOpen}
+          className="custom-modal col-11 col-md-7 col-sm-8 pb-4 pb-lg-5"
           onRequestClose={() => { setModalOpen(false) }}
           style={
             {
               overlay: {
                 backgroundColor: 'rgba(97 107 123 / 85%)'
-              },
-              content: {
-                margin: 'auto',
-                top:'100px',
-                left: '10px',
-                right: '10px',
-                bottom:'100px',
-                padding: '0px',
-                overflow: 'auto'
               }
             }
           }>
-          <div className="d-flex justify-content-center p-3 p-md-5 p-lg-6"><h5>{title}</h5>
+          <div className="d-flex justify-content-center p-2 pt-3 pt-lg-4"><h5>{title}</h5>
             <i class="fas fa-times pl-lg-5" onClick={() => { setModalOpen(false) }}></i></div>
           <div className="d-flex justify-content-center p-2">
             <ReactPlayer width='650px' height='440px' controls url={`https://www.youtube.com/watch?v=${id.videoId}`} />
@@ -199,12 +166,6 @@ export default function App() {
               <img src={medium.url} alt="video-thumbnail" />
               <h3 className="video-title">{title}</h3>
             </div>
-          // <a href={`https://www.youtube.com/watch?v=${id.videoId}`}>
-          // <img src={medium.url} alt="video-thumbnail"/>
-          //   <div className="">
-          // <h3 className="video-title">{title}</h3>
-          // </div>
-          //   </a>
         }
         </div>
       </div>

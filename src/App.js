@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import './App.css';
 import Cards from './Cards';
 import ReactPlayer from 'react-player';
-
 import Modal from 'react-modal';
-
+import LoginButton from './LoginButton';
 
 export default function App() {
 
@@ -132,7 +131,7 @@ export default function App() {
         </div>
       </header>
       <div className="App">
-        {/* <VideoModal /> */}
+       <LoginButton />
         <Modal isOpen={modalOpen}
           className="custom-modal col-11 col-md-7 col-sm-8 pb-4 pb-lg-5"
           onRequestClose={() => { setModalOpen(false) }}

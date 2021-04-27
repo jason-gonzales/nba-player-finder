@@ -1,0 +1,12 @@
+.home {
+
+  background-image: url('./kobe-champ.jpg');
+  background-size:cover;
+  min-height: 100%;
+}
+
+html {
+  font-size: 18px;
+  color: pink;
+
+}

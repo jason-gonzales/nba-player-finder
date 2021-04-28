@@ -1,12 +1,37 @@
 .home {
 
-  background-image: url('./kobe-champ.jpg');
+  background-image: linear-gradient(rgba(20, 78, 235, 0.671),rgba(0,0,0,0.6)),url('./kobe-champ.jpg');
   background-size:cover;
-  min-height: 100%;
+  -webkit-background-size: cover;
+  background-repeat: no-repeat;
+  height:100vh;
+  background-position: center center;
+  color: white;
+  font-family: 'Helvetica', sans-serif;
+  position: static;
 }
 
-html {
-  font-size: 18px;
-  color: pink;
+.container {
+  padding: 140px;
+}
+.title {
+  font-size: 46px;
+  margin-bottom: 10px;
+}
 
+.main-logo {
+  width: 200px;
+}
+
+.login-btn, .demo-btn,.logout-btn, .exit-btn {
+  padding: 9px 15px;
+  border: 1px solid red;
+  border-radius: 25px;
+  background-color: white;
+}
+
+@media only screen and (max-width: 321px) {
+  .container {
+    padding: 80px;
+  }
 }

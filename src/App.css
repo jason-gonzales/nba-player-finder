@@ -222,3 +222,7 @@ a:link {
     top:5%;
   }
 }
+
+.logout-btn, .exit-btn {
+  margin-top: 200px;
+}

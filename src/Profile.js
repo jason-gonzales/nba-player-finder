@@ -108,6 +108,7 @@ const Profile = () => {
         </div>
       </header>
       <div className="App">
+        
             <div>
               Welcome
       <h2>{user.name}</h2>

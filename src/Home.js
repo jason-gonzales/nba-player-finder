@@ -12,7 +12,7 @@ const Home = (props) => {
       <div className="home text-center">
         <div className="container">
           <img className="main-logo" src="images/kobe-logo-mn.png" alt="logo" />
-          <h2 className="title">Player Finder</h2>
+          <h2 className="title">NBA Player Finder</h2>
           <div className="banner-btn p-1">
             <LoginButton />
             <button className="demo-btn ml-1" onClick={() => props.changeView("demo")}>

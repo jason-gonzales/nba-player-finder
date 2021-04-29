@@ -2,9 +2,12 @@ body,
 html,
 #root {
 
-  background-image: url('./hardwood.jpg');
+  background-image: linear-gradient(black,black), url('./ballers-wp.jpg');
+  background-blend-mode: saturation;
   background-size:cover;
   min-height: 100%;
+
+
 }
 
 html {
@@ -126,9 +129,6 @@ header {
   transition: all 0.5s ease;
 }
 
- /* .card-border {
- background: linear-gradient(to bottom, #C9082A 15%, #17408B 15% 30%, white 30% 70%, #17408B 70% 85%, #C9082A 85%);
- } */
 
 .thecard:hover {
   transform: rotateY(180deg);

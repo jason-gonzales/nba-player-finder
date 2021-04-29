@@ -11,7 +11,7 @@ const Cards = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getStats(props.dataPlayer.id,season);
+    getStats(props.dataPlayer.id, season);
   }
 
   const handleChange = (e) => {
@@ -21,15 +21,19 @@ const Cards = (props) => {
   const getStats = (playerId, playerSeason) => {
     axios.get(`https://www.balldontlie.io/api/v1/season_averages?season=${playerSeason}&player_ids[]=${playerId}`)
       .then(async res => {
-// console.log(res.data.data)
         setPlayerStats(res.data.data[0])
       }).catch(err => {
         console.log(err)
       })
   }
 
+  /*ternary operator to see if both the object called dataPlayer and its property team exist
+  const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;*/
 
-  const team = props.dataPlayer && props.dataPlayer.team ? props.dataPlayer.team.full_name : null;
+  /*used optional chaining instead of the ternary operator to see if that property exist, and if
+  it does then assign the value of props.dataPlayer.team.full_name to variable team*/
+  let team = null;
+  team = props.dataPlayer.team?.full_name;
 
   if (props.dataPlayer.length === 0) {
     return <div>
@@ -88,18 +92,13 @@ const Cards = (props) => {
                 <br />
                 FT% : {PercentFormatter(playerStats.ft_pct)}
               </div> : <h1 className="no-record pt-5">Player did not play this season. Try again!</h1>}
-
-
             </div>
-
           </div>
         </div>
       </div >
 
     )
   }
-
-
 }
 
 export default Cards

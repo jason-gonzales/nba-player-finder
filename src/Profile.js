@@ -6,7 +6,6 @@ import Cards from './Cards';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal';
 
-import { FormProvider } from 'react-hook-form';
 
 const Profile = () => {
 
@@ -38,7 +37,8 @@ const Profile = () => {
     let clicked = null
     for (let i = 0; i < search.length; i++) {
       clicked = search[i].first_name + " " + search[i].last_name;
-      console.log(value, clicked)
+      console.log("value", value)
+      console.log("clicked",clicked)
       if (value === clicked) {
         setDataPlayer(search[i])
         let playerMod = value.split(' ').reverse().join('/')
@@ -77,7 +77,7 @@ const Profile = () => {
   const { id = {}, snippet = {} } = video;
   const { title, thumbnails = {} } = snippet;
   const { medium = {} } = thumbnails;
-  console.log(user)
+
   return (
     isAuthenticated && (
       <>
@@ -86,7 +86,6 @@ const Profile = () => {
        <header>
          <div className="d-flex">
            <img src="images/kobe-logo-sq.jpg" className="logo" />
-         {/* <form onSubmit={handleSubmit}> */}
            <form>
              <div className="has-search">
                <span className="fa fa-search form-control-feedback"></span>
@@ -94,7 +93,7 @@ const Profile = () => {
                 className="form-control"
                 placeholder="Search Player"
                 onChange={handleChange} />
-              {dropdown && search?.length > 0 &&
+              {dropdown &&
                 <div className="dropdown-list p-2">
                   {search?.map((el, i) =>
                     <div key={i} className="fa fa-search d-flex p-1">
@@ -114,6 +113,7 @@ const Profile = () => {
       <h2>{user.name}</h2>
             </div>
         <Modal isOpen={modalOpen}
+              ariaHideApp={false}
           className="custom-modal col-11 col-md-7 col-sm-8 pb-4 pb-lg-5"
           onRequestClose={() => { setModalOpen(false) }}
           style={

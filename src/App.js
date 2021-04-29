@@ -10,25 +10,23 @@ export default function App() {
 
   const [view, setView] = useState('')
 
-  const changeView =(name) => {
-    setView({name})
+  const changeView = (name) => {
+    setView({ name })
   }
 
-  const { isLoading} = useAuth0();
+  const { isLoading } = useAuth0();
   if (isLoading) return <div>Loading...</div>
 
-  console.log(view.name)
-let page = null;
-if(view.name === "demo") {
-  page = <Demo changeView={changeView}/>
-} else {
-  page = <Home changeView={changeView}/>
-}
+  let page = null;
+  if (view.name === "demo") {
+    page = <Demo changeView={changeView} />
+  } else {
+    page = <Home changeView={changeView} />
+  }
 
   return (
     <>
-
-     {page}
+      {page}
       <Profile />
       <LogoutButton />
     </>

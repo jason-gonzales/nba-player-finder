@@ -81,7 +81,6 @@ const Demo = (props) => {
       <header>
         <div className="d-flex">
           <img src="images/kobe-logo-sq.jpg" className="logo" />
-          {/* <form onSubmit={handleSubmit}> */}
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>

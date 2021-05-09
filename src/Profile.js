@@ -99,6 +99,7 @@ const Profile = () => {
                     <div key={i} className="fa fa-search d-flex p-1">
                       <div className="ml-1 name-list" onClick={handleClick} value={el.first_name}>
                         {el.first_name} {el.last_name}
+                        <i className="fas fa-arrow-right"></i>
                       </div>
                     </div>
                   )}
@@ -108,7 +109,7 @@ const Profile = () => {
         </div>
       </header>
       <div className="App">
-        
+
             <div>
               Welcome
       <h2>{user.name}</h2>

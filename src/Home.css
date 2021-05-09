@@ -36,3 +36,7 @@
     padding: 80px;
   }
 }
+
+.fa-arrow-right {
+  align-items: flex-end;
+}

@@ -35,7 +35,6 @@ const Demo = (props) => {
     let clicked = null
     for (let i = 0; i < search.length; i++) {
       clicked = search[i].first_name + " " + search[i].last_name;
-      console.log(value, clicked)
       if (value === clicked) {
         setDataPlayer(search[i])
         let playerMod = value.split(' ').reverse().join('/')
@@ -64,7 +63,6 @@ const Demo = (props) => {
   const fetchYouTube = (name) => {
     axios.get(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&q=${name}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}&maxResults=1`)
       .then(async res => {
-        // console.log("metainfo", res.data.items, "selectedVideo",res.data.items[0].id.videoId)
         setVideo(res.data.items[0])
       }).catch(err => {
         console.log(err)
@@ -94,8 +92,8 @@ const Demo = (props) => {
                     <div key={i} className="fa fa-search d-flex p-1">
                       <div className="ml-1 name-list" onClick={handleClick} value={el.first_name}>
                         {el.first_name} {el.last_name}
-                        <i className="fas fa-arrow-right"></i>
                       </div>
+                      <i className="fas fa-arrow-right"></i>
                     </div>
                   )}
                 </div>}
@@ -106,6 +104,7 @@ const Demo = (props) => {
       <div className="App">
 
         <Modal isOpen={modalOpen}
+          ariaHideApp={false}
           className="custom-modal col-11 col-md-7 col-sm-8 pb-4 pb-lg-5"
           onRequestClose={() => { setModalOpen(false) }}
           style={
@@ -116,7 +115,7 @@ const Demo = (props) => {
             }
           }>
           <div className="d-flex justify-content-center p-2 pt-3 pt-lg-4"><h5>{title}</h5>
-            <i class="fas fa-times pl-lg-5" onClick={() => { setModalOpen(false) }}></i></div>
+            <i className="fas fa-times pl-lg-5" onClick={() => { setModalOpen(false) }}></i></div>
           <div className="d-flex justify-content-center p-2">
             <ReactPlayer width='650px' height='440px' controls url={`https://www.youtube.com/watch?v=${id.videoId}`} />
           </div>

@@ -19,6 +19,11 @@ Try the live application at
 ### Getting Started
 1. Clone the repository.
 
+  ```shell
+  git clone https://github.com/jason-gonzales/nba-player-finder.git
+  cd nba-player-finder
+   ```
+
 1. Install all dependencies with NPM.
 
   ```shell
@@ -27,6 +32,6 @@ Try the live application at
 
 1. Run the application.
 
- ```shell
- npm start
- ```
+   ```shell
+   npm start
+   ```

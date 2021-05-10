@@ -16,4 +16,17 @@ Try the live application at
 # Preview
 ![Watch the Video](https://github.com/jason-gonzales/nba-player-finder/raw/main/doc-images/nba-app-vid.gif)
 
+### Getting Started
+1. Clone the repository.
 
+1. Install all dependencies with NPM.
+
+  ```shell
+  npm install
+  ```
+
+1. Run the application.
+
+ ```shell
+ npm start
+ ```

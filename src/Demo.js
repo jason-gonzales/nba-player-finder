@@ -43,7 +43,7 @@ const Demo = (props) => {
 
     }
     setDropdown(false)
-    fetchYouTube(clicked);
+    fetchYouTube(value);
   }
 
   const fetchData = (pic) => {

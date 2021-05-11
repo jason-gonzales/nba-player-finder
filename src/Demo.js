@@ -4,7 +4,7 @@ import './App.css';
 import Cards from './Cards';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal';
-import { propTypes } from 'react-bootstrap/esm/Image';
+
 
 
 const Demo = (props) => {
@@ -78,7 +78,7 @@ const Demo = (props) => {
     <div>
       <header>
         <div className="d-flex">
-          <img src="images/kobe-logo-sq.jpg" className="logo" />
+          <img src="images/kobe-logo-sq.jpg" alt="kobe-logo" className="logo" />
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>

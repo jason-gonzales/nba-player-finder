@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Card } from 'react-bootstrap';
 import PercentFormatter from './PercentFormatter';
-
+import card from './images/nba-card.jpg';
 
 const Cards = (props) => {
 
@@ -37,7 +37,7 @@ const Cards = (props) => {
 
   if (props.dataPlayer.length === 0) {
     return <div>
-      <img className="rookie-card mt-3" src="images/nba-card.jpg" alt="mj-card" />
+      <img className="rookie-card mt-3" src={card} alt="mj-card" />
     </div>;
   } else {
     return (

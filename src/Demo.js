@@ -4,7 +4,9 @@ import './App.css';
 import Cards from './Cards';
 import ReactPlayer from 'react-player';
 import Modal from 'react-modal';
-
+import logo from './images/kobe-logo-sq.jpg';
+import tv from './images/nba-tv.png';
+import youtube from './images/youtube-logo.png';
 
 
 const Demo = (props) => {
@@ -78,7 +80,7 @@ const Demo = (props) => {
     <div>
       <header>
         <div className="d-flex">
-          <img src="images/kobe-logo-sq.jpg" alt="kobe-logo" className="logo" />
+        <img src={logo} alt="kobe-logo" className="logo" />
           <form>
             <div className="has-search">
               <span className="fa fa-search form-control-feedback"></span>
@@ -127,10 +129,10 @@ const Demo = (props) => {
           />
         </div>
         <div className="tv-container">
-          <img className="tv" src="images/nba-tv.png" alt="tv" />
+          <img className="tv" src={tv} alt="tv" />
         </div>
         <div className="video"> {
-          video.length === 0 ? <img src="images/youtube-logo.png" alt="tube-log" /> :
+      video.length === 0 ? <img src={youtube} alt="tube-log" /> :
             <div onClick={() => {
               setModalOpen(true)
             }}>

@@ -53,7 +53,7 @@ const Demo = (props) => {
     axios.get(`https://nba-players.herokuapp.com/players/${pic}`)
       .then(async res => {
         if (res.data === "Sorry, that player was not found. Please check the spelling.") {
-          setDataPic("images/kobe-logo-sq.jpg")
+          setDataPic(logo)
         } else {
           setDataPic(res.config.url)
         }

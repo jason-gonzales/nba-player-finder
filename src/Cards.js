@@ -4,6 +4,7 @@ import { Card } from 'react-bootstrap';
 import PercentFormatter from './PercentFormatter';
 import card from './images/nba-card.jpg';
 
+
 const Cards = (props) => {
 
   const [season, setSeason] = useState([]);

@@ -2,7 +2,7 @@
   "name": "nba-player",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://nba-player-finder.jgonzales.dev/",
+  "homepage": "https://jason-gonzales.github.io/nba-player-finder",
   "dependencies": {
     "@auth0/auth0-react": "^1.4.0",
     "@testing-library/jest-dom": "^5.11.10",

@@ -85,7 +85,7 @@ const Profile = () => {
         <div>
           <header>
             <div className="d-flex">
-              <img src="images/kobe-logo-sq.jpg" className="logo" />
+              <img src="images/kobe-logo-sq.jpg" alt="kobe-logo" className="logo" />
               <form>
                 <div className="has-search">
                   <span className="fa fa-search form-control-feedback"></span>
